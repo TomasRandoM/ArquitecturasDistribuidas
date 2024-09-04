@@ -11,7 +11,7 @@ class Matrix {
     Matrix();
 
     // Función que multiplica dos matrices
-    void multiply(float **matrix1, float **matrix2, float **matrixResult, double sumResult, int n, int from, int to);
+    void multiply(float **matrix1, float **matrix2, float **matrixResult, double& sumResult, int n, int from, int to);
 
 };
 

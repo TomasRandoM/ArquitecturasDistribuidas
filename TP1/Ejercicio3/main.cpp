@@ -72,10 +72,10 @@ void calculate() {
 
     //Se espera a que todos los hilos terminen
     for (int i = 0; i < numberThreads; i++) {
-        threads[i].join();
+        if (threads[i].joinable()) {
+            threads[i].join();
+        }
     }
-
-    
    
     //Se imprimen los resultados
     cout << "Primer elemento: " << endl;

@@ -11,7 +11,6 @@ class Prime {
 
     Prime();
     bool isPrimeNumber(long long int number);
-    void isPrimeNumberThreads(long long int number, std::vector<long long int>& rta);
     void calculatePrimeNumbers(long long int from, long long int to, std::vector<long long int>& rta);
 
 };

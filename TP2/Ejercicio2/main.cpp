@@ -1,4 +1,4 @@
-#include "mpi.h"
+#include <mpi.h>
 #include "Taylor.h"
 #include <thread>
 #include <functional>
@@ -8,110 +8,73 @@
 
 using namespace std;
 
-//Función que pregunta al usuario si desea continuar, devuelve true si la respuesta es 's' o 'S', false en caso contrario
-bool continueSN() {
-    cout << "¿Desea continuar? (s/n): ";
-    char c;
-    cin >> c;
-
-    if (cin.fail()) {
-        cin.clear();
-        throw invalid_argument("El número no es válido");
-        cin.get();
-    }
-
-    if ((c == 's') || (c == 'S')) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 //Función que calcula el logaritmo natural de x utilizando la serie de Taylor
-void calculate() {
+void calculate(int rank, int n) {
     //Declaración de variables
-    int n;
     Taylor taylor;
-    long double finalRes;
+    long double finalRes = 0.0;
+    chrono::time_point<chrono::high_resolution_clock> end, start;
+    int to;
     long double x = 1500000;
-    int from = 0;
-    int to = 10000000;
-    
-    //Entrada de datos
-    cout << "Ingrese la cantidad de hilos: ";
-    //Se solicita la cantidad de hilos, 1 si se calcula sin hilos
-    cin >> n;
-    if (cin.fail()) {
-        cin.clear();
-        throw invalid_argument("El número no es válido");
-    } else if (n <= 0) {
-        throw invalid_argument("El número no puede ser negativo");
-    } else if (10000000 % n != 0) {
-        throw invalid_argument("El número no es divisor de 10000000");
+    int total = 10000000;
+    int range = total / n;
+    int from = rank * (range);
+    vector<int> recvcounts(n);
+    if (rank == n - 1) {
+        to = total;
+    } else {
+        to = (rank + 1) * range;
     }
-    //Se solicita el valor a calcular
-    cout << "Ingrese el valor a calcular: ";
-    cin >> x;
-    if (cin.fail()) {
-        cin.clear();
-        throw invalid_argument("El número no es válido");
-        cin.get();
-    } else if (x < 0) {
-        throw invalid_argument("El número no puede ser negativo");
-        cin.get();
-    }
+
 
     //Se inicia el cronómetro para medir el tiempo de ejecución
-    auto start = chrono::high_resolution_clock::now();
+    if (rank == 0) {
+        start = chrono::high_resolution_clock::now();
+    }
     //Si n == 1, se calcula sin utilizar hilos
     if (n == 1) {
         //Se llama a la función calculateSeries de la clase Taylor
         taylor.calculateSeries(from, to, x, ref(finalRes));
-        cout << setprecision(15) << "Resultado sin hilos: " << finalRes << endl;
-
+        cout << setprecision(15) << "Resultado 1 proceso: " << finalRes << endl;
+        end = chrono::high_resolution_clock::now();
+        chrono::duration<double> elapsed = end - start;
+        cout << "Tiempo de ejecución: " << elapsed.count() << "s" << endl; 
+        cin.get();
     } else {
-        //Se crea un arreglo de hilos
-        thread threadArray[n];
         //Se crea un arreglo donde se almacenará el resultado
-        long double results[n];
-        //Se calcula el incremento, que será utilizado para calcular el rango de cada hilo
-        int increment = to / n;
+        long double results = 0.0;
         
-        //Se crean los hilos
-        for (int i = 0; i <n; i++) {
-            //Se llama a la función calculateSeries de la clase Taylor en cada hilo
-            threadArray[i] = thread(&Taylor::calculateSeries, &taylor, from, from + increment, x, ref(results[i]));
-            from = from + increment;    
-        }
-
-        //Se espera a que todos los hilos terminen
-        for (int i = 0; i <n; i++) {
-            if (threadArray[i].joinable() == true) {
-                threadArray[i].join();
+        taylor.calculateSeries(from, to, x, ref(results));
+        
+        //Se envía el resultado al proceso 0
+        if (rank != 0) {
+            MPI_Send(&results, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
+        } else {
+            finalRes = finalRes + results;
+            for (int i = 1; i < n; i++) {
+                MPI_Recv(&results, 1, MPI_LONG_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                finalRes = finalRes + results;
             }
+            cout << setprecision(15) << "Resultado con " << n << " procesos: " << finalRes << endl;
+            //Se detiene el cronómetro
+            end = chrono::high_resolution_clock::now();
+            //Se calcula el tiempo de ejecución
+            chrono::duration<double> elapsed = end - start;
+            cout << "Tiempo de ejecución: " << elapsed.count() << "s" << endl; 
         }
 
-        //Se suman los resultados de cada hilo para obtener el resultado final
-        long double finalRes = 0;
-        for (int i = 0; i < n; i++) {
-            finalRes = finalRes + results[i];
-        }
-        cout << setprecision(15) << "Resultado con hilos: " << finalRes << endl;
+        MPI_Finalize();
     }
-    //Se detiene el cronómetro
-    auto end = chrono::high_resolution_clock::now();
-    //Se calcula el tiempo de ejecución
-    chrono::duration<double> elapsed = end - start;
-    cout << "Tiempo de ejecución: " << elapsed.count() << "s" << endl; 
     
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cin.get();
+
 }
 
 //Función principal
-int main() {
+int main(int argc, char** argv) {
     int rank, size;
     MPI_Init(&argc, &argv);
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);  // Identificador del proceso
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    calculate(rank, size);
 }

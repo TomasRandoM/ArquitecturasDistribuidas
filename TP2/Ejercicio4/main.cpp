@@ -1,10 +1,21 @@
 #include "Matrix.h"
 #include <thread>
+#include <mpi.h>
 #include <functional>
 #include <iostream>
 #include <iomanip>
 #include <chrono>
 using namespace std;
+
+void printMatrix(float** matrix, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << setw(10) << matrix[i][j] << " ";  // Imprime con formato de 10 caracteres de ancho
+        }
+        cout << endl;
+    }
+}
+
 
 void initializeMatrix(float** matrix, int n, float a) {
     for (int i = 0; i < n; i++) {
@@ -15,26 +26,20 @@ void initializeMatrix(float** matrix, int n, float a) {
 }
 
 //Función que calcula la multiplicación de dos matrices
-void calculate() {
+void calculate(int rank, int size) {
+    chrono::time_point<chrono::high_resolution_clock> end, start;
     double result = 0;
-    thread threads[32];
-    int n = 1000;
-    int numberThreads = 10;
-    cout << "Ingrese la cantidad de filas y columnas: ";
-    cin >> n;
-    if (cin.fail()) {
-        throw invalid_argument("El número no es válido");
-        cin.get();
-    } else if (n < 0) {
-        throw invalid_argument("El número no puede ser negativo");
-        cin.get();
-    } else if (n % numberThreads) {
-        throw invalid_argument("El número debe ser múltiplo del número de hilos");
-        cin.get();
+    //Filas y columnas de las matrices
+    int n = 300;
+    int numberMPI = size;
+    int to;
+    int increment = n / numberMPI;
+    int from = rank * increment;
+    if (rank == numberMPI - 1) {
+        to = n;
+    } else {
+        to = (rank + 1) * increment;
     }
-    
-    int increment = n / 10;
-    int from = 0;
     float** matrix1 = new float*[n];
     float** matrix2 = new float*[n];
     float** matrixResults = new float*[n];
@@ -52,76 +57,110 @@ void calculate() {
     
     Matrix matrix;
     
-    //Se inicia el cronómetro para medir el tiempo de ejecución
+    if (size == 1) {
+        result = 0;
+        //Se inicia el cronómetro
+        start = chrono::high_resolution_clock::now();
 
+        matrix.multiply(ref(matrix1), ref(matrix2), ref(matrixResults), ref(result), n, 0, n);
 
+        //Se imprimen los resultados
+        cout << "Primer elemento: " << endl;
+        cout << matrixResults[0][0] << endl;
+        cout << "Ùltimo elemento: " << endl;
+        cout << matrixResults[n - 1][n - 1] << endl;
+        cout << "Sumatoria: " << result << endl;
+        //Se detiene el cronómetro
+        end = chrono::high_resolution_clock::now();
 
-    //CON HILOS
-    cout << "Con hilos" << endl;
+        //Se calcula el tiempo de ejecución
+        chrono::duration<double> elapsed = end - start;
+        
+        cout << "Tiempo de ejecución con 1 proceso " << elapsed.count() << "s" << endl; 
+        
+    } else {
 
-    //Se inicia el cronómetro
-    auto start = chrono::high_resolution_clock::now();
+        if (rank == 0) {
+            //Se inicia el cronómetro
+            start = chrono::high_resolution_clock::now();
+        }
 
-    //Se inician los hilos llamando a la función recognizePattern, cada uno con un patrón distinto 
-    
+        //Se inician los hilos llamando a la función recognizePattern, cada uno con un patrón distinto 
+        matrix.multiply(ref(matrix1), ref(matrix2), ref(matrixResults), ref(result), n, from, to);
 
-    for (int i = 0; i < numberThreads; i++) {
-        threads[i] = thread(&Matrix::multiply, &matrix, ref(matrix1), ref(matrix2), ref(matrixResultsThreads), ref(result), n, from, from + increment);
-        from = from + increment;
-    }
+        if (rank == 0) {
+            for (int i = 1; i < size; i++) {
+                int recvFrom = i * increment;
+                int recvTo;
+                if (i == size - 1) {
+                    recvTo = n;
+                } else {
+                    recvTo = (i + 1) * increment;
+                }
+            for (int j = recvFrom; j < recvTo; j++) {
+                MPI_Recv(&(matrixResults[j][0]), n, MPI_FLOAT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            }
+            }
+        } else {
+            for (int i = from; i < to; i++) {
+                MPI_Send(&(matrixResults[i][0]), n, MPI_FLOAT, 0, 0, MPI_COMM_WORLD);
+            }
+        }
+        double resultAux;
+        if (rank == 0) {
+            for (int i = 1; i < size; i++) {
+                MPI_Recv(&resultAux, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                result += resultAux;
+            }
+        } else {
+            MPI_Send(&result, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+        }
+ 
+        /*
+        if (rank == 0) {
+            for (int i = 1; i < size; i++) {
+                if (i == size - 1) {
+                    MPI_Recv(&(matrixResults[i * increment][0]), (n - i * increment) * n, MPI_FLOAT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                } else {
+                    MPI_Recv(&(matrixResults[i * increment][0]), increment * n, MPI_FLOAT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                }
+            }
+        } else {
+            if (rank == size - 1) {
+                MPI_Send(&(matrixResults[from][0]), (n - 1 * increment) * n, MPI_FLOAT, 0, 0, MPI_COMM_WORLD);
+            } else {
+                MPI_Send(&(matrixResults[from][0]), increment * n, MPI_FLOAT, 0, 0, MPI_COMM_WORLD);
+            }
+        }
+        */
+        
+        if (rank == 0) {
+            //Se imprimen los resultados
+            cout << "Primer elemento: " << endl;
+            cout << matrixResults[0][0] << endl;
+            cout << "Ùltimo elemento: " << endl;
+            cout << matrixResults[n - 1][n - 1] << endl;
+            cout << "Sumatoria: " << result << endl;
 
-    //Se espera a que todos los hilos terminen
-    for (int i = 0; i < numberThreads; i++) {
-        if (threads[i].joinable()) {
-            threads[i].join();
+            //Se detiene el cronómetro
+            end = chrono::high_resolution_clock::now();
+
+            //Se calcula el tiempo de ejecución
+            chrono::duration<double> elapsed = end - start;
+
+            cout << "Tiempo de ejecución con " << size << " procesos: " << elapsed.count() << "s" << endl;
         }
     }
-   
-    //Se imprimen los resultados
-    cout << "Primer elemento: " << endl;
-    cout << matrixResultsThreads[0][0] << endl;
-    cout << "Ùltimo elemento: " << endl;
-    cout << matrixResultsThreads[n - 1][n - 1] << endl;
-    cout << "Sumatoria: " << result << endl;
-
-    //Se detiene el cronómetro
-    auto end = chrono::high_resolution_clock::now();
-
-    //Se calcula el tiempo de ejecución
-    chrono::duration<double> elapsed = end - start;
-
-    cout << "Tiempo de ejecución con hilos: " << elapsed.count() << "s" << endl;
-
-    //SIN HILOS
-    cout << "Sin hilos" << endl;
-    result = 0;
-    //Se inicia el cronómetro
-    start = chrono::high_resolution_clock::now();
-    matrix.multiply(ref(matrix1), ref(matrix2), ref(matrixResults), ref(result), n, 0, n);
-
-    //Se imprimen los resultados
-    cout << "Primer elemento: " << endl;
-    cout << matrixResults[0][0] << endl;
-    cout << "Ùltimo elemento: " << endl;
-    cout << matrixResults[n - 1][n - 1] << endl;
-    cout << "Sumatoria: " << result << endl;
-    //Se detiene el cronómetro
-    end = chrono::high_resolution_clock::now();
-
-    //Se calcula el tiempo de ejecución
-    elapsed = end - start;
     
-    cout << "Tiempo de ejecución sin hilos: " << elapsed.count() << "s" << endl; 
-    
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cin.get();
 }
 
 //Función principal
-int main() {
-    try {
-        calculate();
-    } catch (const invalid_argument& e) {
-        cout << e.what() << endl;
-    }
+int main(int argc, char** argv) {
+    int rank, size;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    calculate(rank, size);
+    MPI_Finalize();
 }

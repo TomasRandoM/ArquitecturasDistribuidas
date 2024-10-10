@@ -1,0 +1,6 @@
+Primer elemento: 
+6
+Ùltimo elemento: 
+6
+Sumatoria: 540000
+Tiempo de ejecución con 36 procesos: 0.0733827s

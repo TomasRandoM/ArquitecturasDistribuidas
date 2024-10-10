@@ -1,0 +1,217 @@
+Resultado 1 proceso: 14.2209756660663
+Tiempo de ejecución: 0.225498842s
+Resultado con 2 procesos: 14.2209756660663
+Tiempo de ejecución: 0.122150502s
+Resultado con 3 procesos: 14.2209756660663
+Tiempo de ejecución: 0.076804338s
+Resultado con 4 procesos: 14.2209756660663
+Tiempo de ejecución: 0.062883065s
+Resultado con 5 procesos: 14.2209756660663
+Tiempo de ejecución: 0.100084374s
+Resultado con 6 procesos: 14.2209756660663
+Tiempo de ejecución: 0.104549023s
+Resultado con 7 procesos: 14.2209756660663
+Tiempo de ejecución: 0.070894967s
+Resultado con 8 procesos: 14.2209756660663
+Tiempo de ejecución: 0.052178814s
+Resultado con 9 procesos: 14.2209756660663
+Tiempo de ejecución: 0.066870886s
+Resultado con 10 procesos: 14.2209756660663
+Tiempo de ejecución: 0.070884362s
+Resultado con 11 procesos: 14.2209756660663
+Tiempo de ejecución: 0.042713425s
+Resultado con 12 procesos: 14.2209756660663
+Tiempo de ejecución: 0.062616512s
+Resultado con 13 procesos: 14.2209756660663
+Tiempo de ejecución: 0.048585011s
+Resultado con 14 procesos: 14.2209756660663
+Tiempo de ejecución: 0.062324463s
+Resultado con 15 procesos: 14.2209756660663
+Tiempo de ejecución: 0.038456072s
+Resultado con 16 procesos: 14.2209756660663
+Tiempo de ejecución: 0.055122158s
+Resultado con 17 procesos: 14.2209756660663
+Tiempo de ejecución: 0.034986429s
+Resultado con 18 procesos: 14.2209756660663
+Tiempo de ejecución: 0.039027035s
+Resultado con 19 procesos: 14.2209756660663
+Tiempo de ejecución: 0.043778009s
+Resultado con 20 procesos: 14.2209756660663
+Tiempo de ejecución: 0.038978819s
+Resultado con 21 procesos: 14.2209756660663
+Tiempo de ejecución: 0.046672996s
+Resultado con 22 procesos: 14.2209756660663
+Tiempo de ejecución: 0.037225612s
+Resultado con 23 procesos: 14.2209756660663
+Tiempo de ejecución: 0.04592007s
+Resultado con 24 procesos: 14.2209756660663
+Tiempo de ejecución: 0.072191989s
+Resultado con 25 procesos: 14.2209756660663
+Tiempo de ejecución: 0.039320394s
+Resultado con 26 procesos: 14.2209756660663
+Tiempo de ejecución: 0.037911413s
+Resultado con 27 procesos: 14.2209756660663
+Tiempo de ejecución: 0.036894732s
+Resultado con 28 procesos: 14.2209756660663
+Tiempo de ejecución: 0.035905866s
+Resultado con 29 procesos: 14.2209756660663
+Tiempo de ejecución: 0.05528138s
+Resultado con 30 procesos: 14.2209756660663
+Tiempo de ejecución: 0.070929419s
+Resultado con 31 procesos: 14.2209756660663
+Tiempo de ejecución: 0.028828844s
+Resultado con 32 procesos: 14.2209756660663
+Tiempo de ejecución: 0.039962151s
+Resultado con 33 procesos: 14.2209756660663
+Tiempo de ejecución: 0.079771891s
+Resultado con 34 procesos: 14.2209756660663
+Tiempo de ejecución: 0.042270863s
+Resultado con 35 procesos: 14.2209756660663
+Tiempo de ejecución: 0.060554223s
+Resultado con 36 procesos: 14.2209756660663
+Tiempo de ejecución: 0.040246706s
+Resultado con 37 procesos: 14.2209756660663
+Tiempo de ejecución: 0.038045885s
+Resultado con 38 procesos: 14.2209756660663
+Tiempo de ejecución: 0.061087969s
+Resultado con 39 procesos: 14.2209756660663
+Tiempo de ejecución: 0.057200581s
+Resultado con 40 procesos: 14.2209756660663
+Tiempo de ejecución: 0.034272255s
+Resultado con 41 procesos: 14.2209756660663
+Tiempo de ejecución: 0.038197274s
+Resultado con 42 procesos: 14.2209756660663
+Tiempo de ejecución: 0.041424094s
+Resultado con 43 procesos: 14.2209756660663
+Tiempo de ejecución: 0.034325166s
+Resultado con 44 procesos: 14.2209756660663
+Tiempo de ejecución: 0.054022305s
+Resultado con 45 procesos: 14.2209756660663
+Tiempo de ejecución: 0.062693725s
+Resultado con 46 procesos: 14.2209756660663
+Tiempo de ejecución: 0.038283303s
+Resultado con 47 procesos: 14.2209756660663
+Tiempo de ejecución: 0.049152742s
+Resultado con 48 procesos: 14.2209756660663
+Tiempo de ejecución: 0.040928212s
+Resultado con 49 procesos: 14.2209756660663
+Tiempo de ejecución: 0.036948523s
+Resultado con 50 procesos: 14.2209756660663
+Tiempo de ejecución: 0.067449209s
+Resultado con 51 procesos: 14.2209756660663
+Tiempo de ejecución: 0.059789412s
+Resultado con 52 procesos: 14.2209756660663
+Tiempo de ejecución: 0.048574219s
+Resultado con 53 procesos: 14.2209756660663
+Tiempo de ejecución: 0.06219049s
+Resultado con 54 procesos: 14.2209756660663
+Tiempo de ejecución: 0.0459152s
+Resultado con 55 procesos: 14.2209756660663
+Tiempo de ejecución: 0.065783911s
+Resultado con 56 procesos: 14.2209756660663
+Tiempo de ejecución: 0.046836541s
+Resultado con 57 procesos: 14.2209756660663
+Tiempo de ejecución: 0.053720433s
+Resultado con 58 procesos: 14.2209756660663
+Tiempo de ejecución: 0.062851226s
+Resultado con 59 procesos: 14.2209756660663
+Tiempo de ejecución: 0.057275854s
+Resultado con 60 procesos: 14.2209756660663
+Tiempo de ejecución: 0.058389749s
+Resultado con 61 procesos: 14.2209756660663
+Tiempo de ejecución: 0.053194022s
+Resultado con 62 procesos: 14.2209756660663
+Tiempo de ejecución: 0.057529647s
+Resultado con 63 procesos: 14.2209756660663
+Tiempo de ejecución: 0.082943863s
+Resultado con 64 procesos: 14.2209756660663
+Tiempo de ejecución: 0.058203559s
+Resultado con 65 procesos: 14.2209756660663
+Tiempo de ejecución: 0.060558671s
+Resultado con 66 procesos: 14.2209756660663
+Tiempo de ejecución: 0.038368203s
+Resultado con 67 procesos: 14.2209756660663
+Tiempo de ejecución: 0.044456406s
+Resultado con 68 procesos: 14.2209756660663
+Tiempo de ejecución: 0.063411053s
+Resultado con 69 procesos: 14.2209756660663
+Tiempo de ejecución: 0.074387426s
+Resultado con 70 procesos: 14.2209756660663
+Tiempo de ejecución: 0.059960911s
+Resultado con 71 procesos: 14.2209756660663
+Tiempo de ejecución: 0.040869323s
+Resultado con 72 procesos: 14.2209756660663
+Tiempo de ejecución: 0.063546151s
+Resultado con 73 procesos: 14.2209756660663
+Tiempo de ejecución: 0.050945008s
+Resultado con 74 procesos: 14.2209756660663
+Tiempo de ejecución: 0.061508337s
+Resultado con 75 procesos: 14.2209756660663
+Tiempo de ejecución: 0.059967533s
+Resultado con 76 procesos: 14.2209756660663
+Tiempo de ejecución: 0.073664241s
+Resultado con 77 procesos: 14.2209756660663
+Tiempo de ejecución: 0.055080294s
+Resultado con 78 procesos: 14.2209756660663
+Tiempo de ejecución: 0.062960271s
+Resultado con 79 procesos: 14.2209756660663
+Tiempo de ejecución: 0.062632264s
+Resultado con 80 procesos: 14.2209756660663
+Tiempo de ejecución: 0.060449127s
+Resultado con 81 procesos: 14.2209756660663
+Tiempo de ejecución: 0.053683807s
+Resultado con 82 procesos: 14.2209756660663
+Tiempo de ejecución: 0.042071661s
+Resultado con 83 procesos: 14.2209756660663
+Tiempo de ejecución: 0.077753317s
+Resultado con 84 procesos: 14.2209756660663
+Tiempo de ejecución: 0.061416421s
+Resultado con 85 procesos: 14.2209756660663
+Tiempo de ejecución: 0.074112313s
+Resultado con 86 procesos: 14.2209756660663
+Tiempo de ejecución: 0.04882339s
+Resultado con 87 procesos: 14.2209756660663
+Tiempo de ejecución: 0.056708345s
+Resultado con 88 procesos: 14.2209756660663
+Tiempo de ejecución: 0.069255809s
+Resultado con 89 procesos: 14.2209756660663
+Tiempo de ejecución: 0.048137276s
+Resultado con 90 procesos: 14.2209756660663
+Tiempo de ejecución: 0.062264053s
+Resultado con 91 procesos: 14.2209756660663
+Tiempo de ejecución: 0.061401336s
+Resultado con 92 procesos: 14.2209756660663
+Tiempo de ejecución: 0.061971923s
+Resultado con 93 procesos: 14.2209756660663
+Tiempo de ejecución: 0.052294134s
+Resultado con 94 procesos: 14.2209756660663
+Tiempo de ejecución: 0.069323363s
+Resultado con 95 procesos: 14.2209756660663
+Tiempo de ejecución: 0.065752802s
+Resultado con 96 procesos: 14.2209756660663
+Tiempo de ejecución: 0.051737763s
+Resultado con 97 procesos: 14.2209756660663
+Tiempo de ejecución: 0.061516574s
+Resultado con 98 procesos: 14.2209756660663
+Tiempo de ejecución: 0.034941858s
+Resultado con 99 procesos: 14.2209756660663
+Tiempo de ejecución: 0.065815687s
+Resultado con 100 procesos: 14.2209756660663
+Tiempo de ejecución: 0.055825478s
+Resultado con 101 procesos: 14.2209756660663
+Tiempo de ejecución: 0.050487682s
+Resultado con 102 procesos: 14.2209756660663
+Tiempo de ejecución: 0.051733921s
+Resultado con 103 procesos: 14.2209756660663
+Tiempo de ejecución: 0.056538113s
+Resultado con 104 procesos: 14.2209756660663
+Tiempo de ejecución: 0.061472636s
+Resultado con 105 procesos: 14.2209756660663
+Tiempo de ejecución: 0.075787761s
+Resultado con 106 procesos: 14.2209756660663
+Tiempo de ejecución: 0.058087011s
+Resultado con 107 procesos: 14.2209756660663
+Tiempo de ejecución: 0.066958803s
+Resultado con 108 procesos: 14.2209756660663
+Tiempo de ejecución: 0.060949781s
+

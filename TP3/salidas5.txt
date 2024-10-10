@@ -1,0 +1,4 @@
+10 números primos más grandes hasta N con 36 procesos: 
+99999773, 99999787, 99999821, 99999827, 99999839, 99999847, 99999931, 99999941, 99999959, 99999971, 99999989
+Cantidad de números primos menores a N con 36 procesos: 5761455
+Tiempo de ejecución: 17 segundos
